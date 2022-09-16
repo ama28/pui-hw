@@ -1,3 +1,4 @@
+//roll object constructor
 function createRoll(type, price, glazing, packSize){
     const obj = {};
 
@@ -9,6 +10,7 @@ function createRoll(type, price, glazing, packSize){
     return obj;
 }
 
+//all roll objects 
 const originalRoll = createRoll("Original Cinnamon Roll", 2.49, 0, 1);
 const appleRoll = createRoll("Apple Cinnamon Roll", 3.49, 0, 1);
 const raisinRoll = createRoll("Raisin Cinnamon Roll", 2.99, 0, 1);
@@ -18,6 +20,7 @@ const strawberryRoll = createRoll("Strawberry Cinnamon Roll", 3.99, 0, 1);
 
 //Glazing Options Section
 
+//glazing object constructor
 function createGlazing(label, priceChange){
     const G = document.createElement("option");
     G.textContent = label;
@@ -27,6 +30,7 @@ function createGlazing(label, priceChange){
 
 const dropdowns = document.getElementsByClassName("glazingOptions");
 
+//populate all dropdowns with the correct glazing objects
 for (i = 0; i < dropdowns.length; i++){
     dropdowns[i].appendChild(createGlazing("Keep Original", 0));
     dropdowns[i].appendChild(createGlazing("Sugar Milk", 0));
@@ -36,6 +40,7 @@ for (i = 0; i < dropdowns.length; i++){
 
 //Pack Sizing Section
 
+//pack option constructor
 function createPackOption(size, priceChange, double, first) {
     const P = document.createElement("div");
     P.classList.add("buttonContainer");
@@ -62,6 +67,7 @@ function createPackOption(size, priceChange, double, first) {
 
 const packSelectors = document.getElementsByClassName("count");
 
+//populate all pack size forms with the correct packsize objects
 for (i = 0; i < packSelectors.length; i++){
     packSelectors[i].appendChild(createPackOption(1, 1, false, true));
     packSelectors[i].appendChild(createPackOption(3, 3, false, false));
@@ -95,6 +101,7 @@ function priceChange(element, isGlazing){
             break;
     }
 
+    //update either glazing or packSize based off the user input
     if (isGlazing)
     {
         refRoll.glazing = element.value; 
@@ -114,10 +121,12 @@ function priceChange(element, isGlazing){
         refRoll.packSize = checkedButton.value;
     }
 
+    //calculate new price and update price display
     const newPrice = ((parseFloat(refRoll.price) + parseFloat(refRoll.glazing)) * parseFloat(refRoll.packSize)).toFixed(2);
     element.parentElement.parentElement.lastElementChild.firstElementChild.textContent = "$" + newPrice;
 }
 
+//add to cart button functionality
 function addToCart(element){
     const cartDisplay = document.getElementById("cart-display");
     var itemCount = cartDisplay.firstElementChild;
